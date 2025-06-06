@@ -189,7 +189,7 @@ namespace HONORE_API_MAIN.Controllers
             return Ok(categories);
         }
 
-        // GET /api/products/bread-subcategories
+        // GET /api/products/bread-subcategoriesssssssssssssssssssssss
         // Gets all unique bread subcategories.
         [HttpGet("bread-subcategories")]
         [ProducesResponseType(StatusCodes.Status200OK)]
