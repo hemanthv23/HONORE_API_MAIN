@@ -1,0 +1,6 @@
+@HONORE_API_MAIN_HostAddress = http://localhost:5129
+
+GET {{HONORE_API_MAIN_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
