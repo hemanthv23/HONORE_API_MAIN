@@ -1,3 +1,4 @@
+// Updated Program.cs
 using HONORE_API_MAIN.Data;
 using HONORE_API_MAIN.Services;
 using Microsoft.EntityFrameworkCore;
@@ -20,11 +21,10 @@ builder.Services.AddCors(options =>
                       builder =>
                       {
                           builder.WithOrigins("http://localhost:4200") // Allow requests from this specific origin
-                                 .AllowAnyHeader()    // Allow all headers (e.g., Content-Type, Authorization)
-                                 .AllowAnyMethod();   // Allow all HTTP methods (GET, POST, PUT, DELETE, etc.)
+                                 .AllowAnyHeader() // Allow all headers (e.g., Content-Type, Authorization)
+                                 .AllowAnyMethod(); // Allow all HTTP methods (GET, POST, PUT, DELETE, etc.)
                       });
 });
-
 
 // Configure Swagger/OpenAPI for API documentation
 builder.Services.AddEndpointsApiExplorer();
@@ -35,20 +35,19 @@ builder.Services.AddSwaggerGen(c =>
 
 // Configure HonoreDBContext to use SQL Server
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-
 builder.Services.AddDbContext<HonoreDBContext>(options =>
-    options.UseSqlServer(connectionString,
-        sqlServerOptionsAction: sqlOptions =>
-        {
-            // Enable retry on failure for transient errors (e.g., network glitches, database restarts)
-            sqlOptions.EnableRetryOnFailure(
-                maxRetryCount: 5,
-                maxRetryDelay: TimeSpan.FromSeconds(30),
-                errorNumbersToAdd: null);
-        }));
+    options.UseSqlServer(connectionString, sqlServerOptionsAction: sqlOptions =>
+    {
+        // Enable retry on failure for transient errors (e.g., network glitches, database restarts)
+        sqlOptions.EnableRetryOnFailure(
+            maxRetryCount: 5,
+            maxRetryDelay: TimeSpan.FromSeconds(30),
+            errorNumbersToAdd: null);
+    }));
 
-// Register your ProductService for Dependency Injection.
+// Register your services for Dependency Injection
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 var app = builder.Build();
 
